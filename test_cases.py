@@ -195,3 +195,22 @@ def test_case8(open_quiz_page):
     text2 = browser.find_element(By.CSS_SELECTOR, "div.quiz-question__body > p").text
     time.sleep(1)
     assert text1 != text2
+    
+    
+def test_case9(open_main_page):
+    print("\n Правильный подсчет количества подписок")
+    open_main_page
+    mailing_list = browser.find_element(By.CSS_SELECTOR, "div.multiselect__active-button")
+    mailing_list.click()
+    time.sleep(1)
+    item = browser.find_element(By.CSS_SELECTOR, "div[data-value='angular']")
+    item.click()
+    item = browser.find_element(By.CSS_SELECTOR, "div[data-value='rxjs']")
+    item.click()
+    three_mailing = mailing_list.text
+    item = browser.find_element(By.CSS_SELECTOR, "div[data-value='react']")
+    item.click()
+    item = browser.find_element(By.CSS_SELECTOR, "div[data-value='typescript']")
+    item.click()
+    five_mailing = mailing_list.text
+    assert three_mailing == "3 рассылки" and five_mailing == "5 рассылок"
