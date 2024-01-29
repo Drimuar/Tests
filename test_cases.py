@@ -98,8 +98,6 @@ def test_case2(open_main_page, login, password, name):
     sub_button.click()
     time.sleep(5)
     success_text = browser.find_element(By.CSS_SELECTOR, "button.sitetoolbar__user > span").text
-    print(success_text.text)
-    print(name)
     assert success_text == name
 
 
