@@ -119,7 +119,7 @@ def test_case3(authorization):
     
     
 def test_case4(open_main_page):
-    print("\n Авторизация существующего пользователя")
+    print("\n Проверка поиска информации на сайте")
     open_main_page
     toFind = "замыкания"
     find_field = browser.find_element(By.CLASS_NAME, 'text-input__frontpage-search__input')
@@ -129,3 +129,18 @@ def test_case4(open_main_page):
     time.sleep(3)
     result = browser.find_element(By.CLASS_NAME, 'search-results__marked').text
     assert toFind.upper() in result.upper()
+    
+    
+def test_case5(open_main_page):
+    print("\n Проверка работы функционала переключения языка")
+    open_main_page
+    lang_button = browser.find_element(By.CSS_SELECTOR, "div.sitetoolbar__lang-switcher > button.sitetoolbar__dropdown-button")
+    lang_button.click()
+    time.sleep(1)
+    lang_link = browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[1]/div[1]/div/div/div/div/div[1]/ul[1]/li[2]/a")
+    lang_link.click()
+    time.sleep(2)
+    success = browser.find_element(By.CSS_SELECTOR, "h1.frontpage-banner__title").text
+    assert success == "The Modern JavaScript Tutorial"
+    
+    
