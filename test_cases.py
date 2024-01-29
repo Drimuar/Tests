@@ -154,3 +154,20 @@ def test_case6(open_main_page):
     text_color = body.value_of_css_property("color")
     background_color = body.value_of_css_property("background-color")
     assert background_color == "rgba(255, 255, 255, 1)" and text_color == "rgba(49, 49, 49, 1)"
+    
+    
+def test_case7(authorization):
+    print("\n Обновление имени пользователя")
+    authorization
+    buy_button = browser.find_element(By.CLASS_NAME, "sitetoolbar-right-button_courses")
+    buy_button.click()
+    time.sleep(1)
+    radio_price = browser.find_element(By.CSS_SELECTOR, "#book-3")
+    radio_price.click()
+    radio_payment = browser.find_element(By.CSS_SELECTOR, "#input-payanywayCard")
+    radio_payment.click()
+    submit = browser.find_element(By.CSS_SELECTOR, "button.new-complex-form__submit")
+    submit.click()
+    time.sleep(5)
+    toPay = browser.find_element(By.CSS_SELECTOR, "span.cart_amount_value").text
+    assert toPay == "600,00 ₽"
