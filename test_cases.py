@@ -1,5 +1,6 @@
 import pytest
 import time
+import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -115,3 +116,16 @@ def test_case3(authorization):
     time.sleep(1)
     success_text = browser.find_element(By.CSS_SELECTOR, "div.notification_success > div.notification__content").text
     assert success_text == "Ваше имя пользователя изменено."
+    
+    
+def test_case4(open_main_page):
+    print("\n Авторизация существующего пользователя")
+    open_main_page
+    toFind = "замыкания"
+    find_field = browser.find_element(By.CLASS_NAME, 'text-input__frontpage-search__input')
+    find_field.click()
+    find_field.send_keys(toFind)
+    find_field.send_keys(Keys.ENTER)
+    time.sleep(3)
+    result = browser.find_element(By.CLASS_NAME, 'search-results__marked').text
+    assert toFind.upper() in result.upper()
