@@ -28,6 +28,11 @@ def open_main_page():
     print("\n Открытие главной страницы")
 
 @pytest.fixture
+def open_quiz_page():
+    browser.get('https://learn.javascript.ru/quiz')
+    print("\n Открытие раздела с тестами")
+
+@pytest.fixture
 def authorization(open_main_page, login, password):
     open_main_page
     auth_button = browser.find_element(By.CLASS_NAME, 'sitetoolbar__login')
@@ -157,7 +162,7 @@ def test_case6(open_main_page):
     
     
 def test_case7(authorization):
-    print("\n Обновление имени пользователя")
+    print("\n Проверка цены книги")
     authorization
     buy_button = browser.find_element(By.CLASS_NAME, "sitetoolbar-right-button_courses")
     buy_button.click()
@@ -171,3 +176,22 @@ def test_case7(authorization):
     time.sleep(5)
     toPay = browser.find_element(By.CSS_SELECTOR, "span.cart_amount_value").text
     assert toPay == "600,00 ₽"
+
+
+def test_case8(open_quiz_page):
+    print("\n Проверка функции Тестирование знаний на разные вопросы")
+    open_quiz_page
+    quiz_button = browser.find_element(By.CSS_SELECTOR, "form[action='/quiz/start/js-basic']")
+    quiz_button.click()
+    time.sleep(1)
+    text1 = browser.find_element(By.CSS_SELECTOR, "div.quiz-question__body > p").text
+    time.sleep(1)
+    test_page = browser.find_element(By.LINK_TEXT, "Тесты знаний")
+    test_page.click()
+    time.sleep(1)
+    quiz_button = browser.find_element(By.CSS_SELECTOR, "form[action='/quiz/start/js-basic']")
+    quiz_button.click()
+    time.sleep(1)
+    text2 = browser.find_element(By.CSS_SELECTOR, "div.quiz-question__body > p").text
+    time.sleep(1)
+    assert text1 != text2
