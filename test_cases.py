@@ -144,3 +144,13 @@ def test_case5(open_main_page):
     assert success == "The Modern JavaScript Tutorial"
     
     
+def test_case6(open_main_page):
+    print("\n Проверка работы функционала переключения языка")
+    open_main_page
+    theme_button = browser.find_element(By.CLASS_NAME, "theme-changer__label")
+    theme_button.click()
+    time.sleep(1)
+    body = browser.find_element(By.CSS_SELECTOR, "body")
+    text_color = body.value_of_css_property("color")
+    background_color = body.value_of_css_property("background-color")
+    assert background_color == "rgba(255, 255, 255, 1)" and text_color == "rgba(49, 49, 49, 1)"
