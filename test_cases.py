@@ -214,3 +214,19 @@ def test_case9(open_main_page):
     item.click()
     five_mailing = mailing_list.text
     assert three_mailing == "3 рассылки" and five_mailing == "5 рассылок"
+
+
+def test_case10(authorization):
+    print("\n Проверка на выход из системы")
+    authorization
+    auth_button = browser.find_element(By.CLASS_NAME, 'sitetoolbar__user')
+    auth_button.click()
+    time.sleep(1)
+    exit_link = browser.find_element(By.LINK_TEXT, "Выйти")
+    exit_link.click()
+    time.sleep(2)
+    auth_button = browser.find_element(By.CLASS_NAME, 'sitetoolbar__login')
+    auth_button.click()
+    success = browser.find_element(By.CLASS_NAME, 'login-form__title').text
+    time.sleep(2)
+    assert success == "Вход"
