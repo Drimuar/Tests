@@ -145,7 +145,7 @@ def test_case5(open_main_page):
     
     
 def test_case6(open_main_page):
-    print("\n Проверка работы функционала переключения языка")
+    print("\n Смена темы оформления")
     open_main_page
     theme_button = browser.find_element(By.CLASS_NAME, "theme-changer__label")
     theme_button.click()
